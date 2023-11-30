@@ -1,12 +1,12 @@
 const express = require("express");
 const  ProjectFileModel =require("../model/projectFile.model")
-const ProjectFileModel = express.Router();
+const ProjectFileRouter = express.Router();
 
 
-ProjectFileModel.get("/", async (req, res) => {
+ProjectFileRouter .get("/", async (req, res) => {
   const query={};
   try {
-    const projects=await ProjectFileModel.find(query);
+    const projects=await ProjectFileRouter .find(query);
     res.send(projects);
   } catch (error) {
     console.log(error);
@@ -14,10 +14,10 @@ ProjectFileModel.get("/", async (req, res) => {
   }
 });
 
-ProjectFileModel.post("/add", async (req, res) => {
+ProjectFileRouter.post("/add", async (req, res) => {
   const payload = req.body;
   try {
-    const newProject = new ProjectFileModel(payload);
+    const newProject = new ProjectFileRouter (payload);
     await newProject.save();
     res.send("Project created successfully");
   } catch (error) {
@@ -26,10 +26,10 @@ ProjectFileModel.post("/add", async (req, res) => {
   }
 });
 
-ProjectFileModel.get("/:id", async (req, res) => {
+ProjectFileRouter.get("/:id", async (req, res) => {
   try {
     const {id} =req.params;
-    const projects = await ProjectFileModel.findById(id);
+    const projects = await ProjectFileRouter .findById(id);
     if (!projects) {
       res.status(404).send({ message:"Projects not found"});
     } else {
@@ -41,17 +41,17 @@ ProjectFileModel.get("/:id", async (req, res) => {
   }
 });
 
-ProjectFileModel.patch("/update/:id", async (req, res) => {
+ProjectFileRouter.patch("/update/:id", async (req, res) => {
   const {id}=req.params;
   const payload=req.body;
   try {
-    const project=await ProjectFileModel.findById(id);
+    const project=await ProjectFileRouter .findById(id);
     const projectID_in_post=project.userID;
     const projectID_in_req =req.body.userID;
     if (projectID_in_post!==projectID_in_req) {
       res.status(401).send({ message:"You are not authorized to proceed projectID" });
     } else {
-      await ProjectFileModel.findByIdAndUpdate(id, payload);
+      await ProjectFileRouter .findByIdAndUpdate(id, payload);
       res.send("Project Updated Successfully");
     }
   } catch (error) {
@@ -60,16 +60,16 @@ ProjectFileModel.patch("/update/:id", async (req, res) => {
   }
 });
 
-ProjectFileModel.delete("/delete/:id",async (req, res) => {
+ProjectFileRouter.delete("/delete/:id",async (req, res) => {
   const {id} = req.params;
   try {
-    const project = await ProjectFileModel.findById(id);
+    const project = await ProjectFileRouter.findById(id);
     const projectID_in_post =project.userID;
     const projectID_in_req =req.body.userID;
     if (projectID_in_post!==projectID_in_req) {
       res.status(401).send({ message: "You are not authorized to proceed.Try Again" });
     } else {
-      await ProjectFileModel.findByIdAndDelete(id);
+      await ProjectFileRouter.findByIdAndDelete(id);
       res.send("Deleted post successfully");
     }
   } catch (error) {
@@ -80,4 +80,4 @@ ProjectFileModel.delete("/delete/:id",async (req, res) => {
 
 
 
-module.exports =ProjectFileModel
+module.exports =ProjectFileRouter 
