@@ -1,5 +1,5 @@
 const express=require("express")
-const connection=require("./db")
+const connection=require("./configs/db")
 
 require("dotenv").config()
 const cors=require("cors")
@@ -13,7 +13,7 @@ const port=process.env.port|| 8080
 
 app.use(cors())
 app.get("/",(req,res)=>{
-    res.send("Welcome to homepage of Zura Backend")
+    res.send("Welcome to homepage of Zura venture Backend")
 })
 
 
