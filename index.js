@@ -20,11 +20,12 @@ app.get("/",(req,res)=>{
 app.use("/projectfile",projectfileRouter)
 app.use("/project",projectRouter)
 app.listen(port,async()=>{
+    console.log("connecting to db");
     try {
         await connection
         console.log("Connnection succesfully to db")
     } catch (error) {
       console.log(error)  
     }
-    console.log("Port Running at 8080")
+    
 })

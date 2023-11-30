@@ -81,17 +81,5 @@ projectRouter.delete("/delete/:id",async (req, res) => {
 });
 
 
-// projectRouter.get("/search",async(req,res)=>{
-//   try {
-//     const query = req.query.value;
-//     const store = query.toLowerCase();
-//     console.log(query,store);
-//    let searchData=await ProjectsModel.find({fileName:store})
-//    res.json(searchData)
-//   } catch (error) {
-//     res.status(500).json({ message: "something goes wrong", error: error.message });
-//   }
-// })
-
 module.exports = projectRouter
 
