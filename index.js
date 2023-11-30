@@ -1,25 +1,24 @@
 const express=require("express")
 const connection=require("./configs/db")
-const app=express()
+
 require("dotenv").config()
 const cors=require("cors")
 
-app.use(cors())
+const  projectRouter= require("./route/project.Route")
+const projectfileRouter=require("./route/projectfile.Route")
+
+const app=express()
 app.use(express.json())
-const {projectfileRouter}=require("./route/projectfile.Route")
-const  {projectRouter}= require("./route/project.Route")
-
-
 const port=process.env.port|| 8080
 
-
+app.use(cors())
 app.get("/",(req,res)=>{
     res.send("Welcome to homepage of Lama Backend")
 })
 
-app.use("/project",projectRouter)
-app.use("/projectfile",projectfileRouter)
 
+app.use("/projectfile",projectfileRouter)
+app.use("/project",projectRouter)
 app.listen(port,async()=>{
     try {
         await connection
