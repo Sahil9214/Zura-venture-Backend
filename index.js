@@ -3,15 +3,16 @@ const connection=require("./configs/db")
 
 require("dotenv").config()
 const cors=require("cors")
-
+const app=express()
+app.use(cors())
 app.use(express.json())
 const projectfileRouter=require("./route/projectfile.Route")
 const  projectRouter= require("./route/project.Route")
-const app=express()
+
 
 const port=process.env.port|| 8080
 
-app.use(cors())
+
 app.get("/",(req,res)=>{
     res.send("Welcome to homepage of Lama Backend")
 })
