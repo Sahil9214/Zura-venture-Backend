@@ -1,9 +1,9 @@
 const express = require("express");
 const  ProjectFileModel =require("../model/projectFile.model")
-const projectfileRouter = express.Router();
+const ProjectFileModel = express.Router();
 
 
-projectfileRouter.get("/", async (req, res) => {
+ProjectFileModel.get("/", async (req, res) => {
   const query={};
   try {
     const projects=await ProjectFileModel.find(query);
@@ -14,7 +14,7 @@ projectfileRouter.get("/", async (req, res) => {
   }
 });
 
-projectfileRouter.post("/add", async (req, res) => {
+ProjectFileModel.post("/add", async (req, res) => {
   const payload = req.body;
   try {
     const newProject = new ProjectFileModel(payload);
@@ -26,7 +26,7 @@ projectfileRouter.post("/add", async (req, res) => {
   }
 });
 
-projectfileRouter.get("/:id", async (req, res) => {
+ProjectFileModel.get("/:id", async (req, res) => {
   try {
     const {id} =req.params;
     const projects = await ProjectFileModel.findById(id);
@@ -41,7 +41,7 @@ projectfileRouter.get("/:id", async (req, res) => {
   }
 });
 
-projectfileRouter.patch("/update/:id", async (req, res) => {
+ProjectFileModel.patch("/update/:id", async (req, res) => {
   const {id}=req.params;
   const payload=req.body;
   try {
@@ -60,7 +60,7 @@ projectfileRouter.patch("/update/:id", async (req, res) => {
   }
 });
 
-projectfileRouter.delete("/delete/:id",async (req, res) => {
+ProjectFileModel.delete("/delete/:id",async (req, res) => {
   const {id} = req.params;
   try {
     const project = await ProjectFileModel.findById(id);
@@ -80,4 +80,4 @@ projectfileRouter.delete("/delete/:id",async (req, res) => {
 
 
 
-module.exports =projectfileRouter
+module.exports =ProjectFileModel

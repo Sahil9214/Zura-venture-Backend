@@ -9,11 +9,11 @@ const projectfileRouter=require("./route/projectfile.Route")
 
 const app=express()
 app.use(express.json())
-const port=process.env.port|| 8080
+const port=process.env.port
 
 app.use(cors())
 app.get("/",(req,res)=>{
-    res.send("Welcome to homepage of Lama Backend")
+    res.send("Welcome to homepage of Zura Backend")
 })
 
 
