@@ -3,9 +3,10 @@ const ProjectsModel = require("../model/project.model");
 const projectRouter = express.Router();
 
 projectRouter.get("/", async (req, res) => {
-  const { query } = req.query.userEmail;
+  console.log("hello")
+  const { val } = req.query.userEmail;
   try {
-    const projects = await ProjectsModel.find(query);
+    const projects = await ProjectsModel.find(val);
     res.send(projects);
   } catch (error) {
     console.log(error);
