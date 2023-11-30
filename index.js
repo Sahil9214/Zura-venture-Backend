@@ -4,8 +4,8 @@ const connection=require("./configs/db")
 require("dotenv").config()
 const cors=require("cors")
 
-const  projectRouter= require("./route/project.Route")
-const projectfileRouter=require("./route/projectfile.Route")
+// const  projectRouter= require("./route/project.Route")
+// const projectfileRouter=require("./route/projectfile.Route")
 
 const app=express()
 app.use(express.json())
