@@ -13,7 +13,7 @@ const port=process.env.port|| 8080
 
 app.use(cors())
 app.get("/",(req,res)=>{
-    res.send("Welcome to homepage of Lama Backend")
+    res.send("Welcome to homepage of Zura Backend")
 })
 
 
