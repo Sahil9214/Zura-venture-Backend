@@ -1,9 +1,9 @@
 const express=require("express")
 const connection=require("./configs/db")
-
+const app=express()
 require("dotenv").config()
 const cors=require("cors")
-const app=express()
+
 app.use(cors())
 app.use(express.json())
 const projectfileRouter=require("./route/projectfile.Route")
