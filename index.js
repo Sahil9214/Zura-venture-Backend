@@ -1,63 +1,30 @@
-const express = require("express");
-const UserModel = require("../model/user.Model");
-const jwt = require("jsonwebtoken");
-const bcrypt = require("bcrypt");
+const express=require("express")
+const connection=require("./db")
 
-require("dotenv").config();
+require("dotenv").config()
+const cors=require("cors")
 
-const userRouter = express.Router();
+const  projectRouter= require("./route/project.Route")
+const projectfileRouter=require("./route/projectfile.Route")
 
-userRouter.post("/signup", async (req, res) => {
-  const { email, password, cnfpassword } = req.body;
-//   console.log(req.body);
-//   console.log("Password:", password);
-//   console.log("Confirm Password:", cnfpassword);
-  if (password == cnfpassword) {
+const app=express()
+app.use(express.json())
+const port=process.env.port|| 8080
+
+app.use(cors())
+app.get("/",(req,res)=>{
+    res.send("Welcome to homepage of Lama Backend")
+})
+
+
+app.use("/projectfile",projectfileRouter)
+app.use("/project",projectRouter)
+app.listen(port,async()=>{
     try {
-      bcrypt.hash(password, 5, async (err, security) => {
-        if (err) {
-          console.log(err);
-        } else {
-            // console.log(password,cnfpassword);
-          const user = new UserModel({
-            email,
-            password: security,
-            cnfpassword: security,
-          });
-          
-          await user.save();
-          res.json(user)
-          // console.log(user);
-        }
-      });
+        await connection
+        console.log("Connnection succesfully to db")
     } catch (error) {
-      res.send({ message: "error in registering the user" });
-      // console.log(error.message);
+      console.log(error)  
     }
-  } else {
-    res.send({ message: "password and conform password not matching.Try Again" });
-  }
-});
-
-userRouter.post("/login", async (req, res) => {
-    let { email, password } = req.body;
-    try {
-      let user = await UserModel.findOne({ email });
-      if (user) {
-        bcrypt.compare(password, user.password, (err, result) => {
-          if (result) {
-            let token = jwt.sign({ authorId: user._id },process.env.key);
-            res.send({ msg:  "Login Successful", token: token });
-          } else {
-            res.send({ msg: "Invalid Credentials ,please Login Again" });
-          }
-        });
-      } else {
-        res.send({ msg: "please signup first and proceed" });
-      }
-    } catch (error) {
-      res.send(error);
-    }
-  });
-
-module.exports = { userRouter };
+    console.log("Port Running at 8080")
+})
