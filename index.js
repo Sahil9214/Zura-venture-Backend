@@ -7,7 +7,7 @@ const cors=require("cors")
 app.use(cors())
 app.use(express.json())
 const projectfileRouter=require("./route/projectfile.Route")
-const  projectRouter= require("./route/project.Route")
+const  {projectRouter}= require("./route/project.Route")
 
 
 const port=process.env.port|| 8080
@@ -17,9 +17,9 @@ app.get("/",(req,res)=>{
     res.send("Welcome to homepage of Lama Backend")
 })
 
-
-app.use("/projectfile",projectfileRouter)
 app.use("/project",projectRouter)
+app.use("/projectfile",projectfileRouter)
+
 app.listen(port,async()=>{
     try {
         await connection
