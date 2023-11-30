@@ -6,7 +6,7 @@ const ProjectFileRouter = express.Router();
 ProjectFileRouter .get("/", async (req, res) => {
   const query={};
   try {
-    const projects=await ProjectFileRouter .find(query);
+    const projects=await ProjectFileModel.find(query);
     res.send(projects);
   } catch (error) {
     console.log(error);
@@ -17,7 +17,7 @@ ProjectFileRouter .get("/", async (req, res) => {
 ProjectFileRouter.post("/add", async (req, res) => {
   const payload = req.body;
   try {
-    const newProject = new ProjectFileRouter (payload);
+    const newProject = new ProjectFileModel(payload);
     await newProject.save();
     res.send("Project created successfully");
   } catch (error) {
@@ -29,7 +29,7 @@ ProjectFileRouter.post("/add", async (req, res) => {
 ProjectFileRouter.get("/:id", async (req, res) => {
   try {
     const {id} =req.params;
-    const projects = await ProjectFileRouter .findById(id);
+    const projects = await ProjectFileModel.findById(id);
     if (!projects) {
       res.status(404).send({ message:"Projects not found"});
     } else {
@@ -45,7 +45,7 @@ ProjectFileRouter.patch("/update/:id", async (req, res) => {
   const {id}=req.params;
   const payload=req.body;
   try {
-    const project=await ProjectFileRouter .findById(id);
+    const project=await ProjectFileModel.findById(id);
     const projectID_in_post=project.userID;
     const projectID_in_req =req.body.userID;
     if (projectID_in_post!==projectID_in_req) {
@@ -63,7 +63,7 @@ ProjectFileRouter.patch("/update/:id", async (req, res) => {
 ProjectFileRouter.delete("/delete/:id",async (req, res) => {
   const {id} = req.params;
   try {
-    const project = await ProjectFileRouter.findById(id);
+    const project = await ProjectFileModel.findById(id);
     const projectID_in_post =project.userID;
     const projectID_in_req =req.body.userID;
     if (projectID_in_post!==projectID_in_req) {
